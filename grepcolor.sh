@@ -2,21 +2,21 @@
 
 
 # DESCRIPTION:
-#   * h highlights with color specified keywords when you invoke it via pipe
-#   * h is just a tiny wrapper around the powerful 'ack' (or 'ack-grep'). you need 'ack' installed to use h. ack website: http://beyondgrep.com/
+#   * grepcolor highlights with color specified keywords when you invoke it via pipe
+#   * grepcolor is just a tiny wrapper around the powerful 'ack' (or 'ack-grep'). you need 'ack' installed to use h. ack website: http://beyondgrep.com/
 # INSTALL:
 #   * put something like this in your .bashrc:
 #     . /path/to/h.sh
 #   * or just copy and paste the function in your .bashrc
 # TEST ME:
 #   * try to invoke:
-#     echo "abcdefghijklmnopqrstuvxywz" | h   a b c d e f g h i j k l
+#     echo "abcdefghijklmnopqrstuvxywz" | grepcolor   a b c d e f g h i j k l
 # CONFIGURATION:
 #   * you can alter the color and style of the highlighted tokens setting values to these 2 environment values following "Perl's Term::ANSIColor" supported syntax
 #   * ex.
-#     export H_COLORS_FG="bold black on_rgb520","bold red on_rgb025"
-#     export H_COLORS_BG="underline bold rgb520","underline bold rgb025"
-#     echo abcdefghi | h   a b c d
+#     export GREPCOLOR_COLORS_FG="bold black on_rgb520","bold red on_rgb025"
+#     export GREPCOLOR_COLORS_BG="underline bold rgb520","underline bold rgb025"
+#     echo abcdefghi | grepcolor   a b c d
 # GITHUB
 #   * https://github.com/paoloantinori/hhighlighter
 
@@ -24,10 +24,10 @@
 
 
 
-h() {
+grepcolor() {
 
     _usage() {
-        echo "usage: YOUR_COMMAND | h [-idn] args...
+        echo "usage: YOUR_COMMAND | grepcolor [-idn] args...
     -i : ignore case
     -d : disable regexp
     -n : invert colors"
@@ -61,8 +61,8 @@ h() {
 
     local _i=0
 
-    if [[ -n $H_COLORS_FG ]]; then
-        local _CSV="$H_COLORS_FG"
+    if [[ -n $GREPCOLOR_COLORS_FG ]]; then
+        local _CSV="$GREPCOLOR_COLORS_FG"
         local OLD_IFS="$IFS"
         IFS=','
         local _COLORS_FG=()
@@ -81,8 +81,8 @@ h() {
                 )
     fi
 
-    if [[ -n $H_COLORS_BG ]]; then
-        local _CSV="$H_COLORS_BG"
+    if [[ -n $GREPCOLOR_COLORS_BG ]]; then
+        local _CSV="$GREPCOLOR_COLORS_BG"
         local OLD_IFS="$IFS"
         IFS=','
         local _COLORS_BG=()
@@ -112,7 +112,7 @@ h() {
 
     if [[ "$#" -gt ${#_COLORS[@]} ]]; then
         echo "You have passed to hhighlighter more keywords to search than the number of configured colors.
-Check the content of your H_COLORS_FG and H_COLORS_BG environment variables or unset them to use default 12 defined colors."
+Check the content of your GREPCOLOR_COLORS_FG and GREPCOLOR_COLORS_BG environment variables or unset them to use default 12 defined colors."
         return 1
     fi
 
