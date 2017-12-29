@@ -3,15 +3,15 @@
 1. download the shell script to your home dir
 1. add this to your ~/.bashrc
 
-	```
-	export GREPCOLOR_COLORS_FG="bold yellow"
+	```bash
+    export GREPCOLOR_COLORS_FG="bold yellow"
 	
 	source ~/grepcolor.sh
 	```
 	
 1. grep something to see the highlight
 
-	``` 
+	```bash
 	echo godzilla | grepcolor zilla
 	```
 
